@@ -1,1 +1,8 @@
-
+*.mi?
+*.smi
+*.inc
+*.bat
+*.txt
+*.pass?
+*.c
+*.h
