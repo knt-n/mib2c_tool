@@ -6,3 +6,5 @@
 *.pass?
 *.c
 *.h
+*.log
+*.done
