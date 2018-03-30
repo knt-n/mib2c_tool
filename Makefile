@@ -7,7 +7,7 @@ smic_dir := ./smic/bin
 all:
 
 clean:
-	$(RM) *.inc *.smi *.pass* *.log *.done
+	$(RM) *.inc *.smi *.pass* *.log *.done *.cmt
 
 debug:
 	$(smic_dir)/SMICng /H
@@ -16,9 +16,14 @@ debug:
 	@if [ -f $@ ]; then $(RM) $@; fi
 	$(smic_dir)/SMICbmi $<
 
+%.inc: %.mi2
+	@if [ -f $@ ]; then $(RM) $@; fi
+	$(smic_dir)/SMICbmi $<
+
 %.smi: %.inc
 	$(smic_dir)/SMICng -z -cm $< > $@
 
 %.done: %.smi
+	@if [ ! -d $(basename $(@F)) ]; then mkdir $(basename $(@F)); fi
 	./codegen -l -o $(basename $<) $<
-	touch $@
+	@touch $@
